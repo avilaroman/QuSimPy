@@ -1,49 +1,44 @@
 # QuSim.py
 
-[![Build Status](https://travis-ci.org/adamisntdead/QuSimPy.svg?branch=master)](https://travis-ci.org/adamisntdead/QuSimPy)
+[![Estado de la compilación](https://travis-ci.org/adamisntdead/QuSimPy.svg?branch=master)](https://travis-ci.org/adamisntdead/QuSimPy)
 
-Qusim.py is a toy multi-qubit quantum computer simulator, written in 150 lines of python
+Qusim.py es un simulador de computadora cuántica multi-cúbit de juguete, escrito en 150 líneas de Python.
 
-This code makes it easy for you to see how a quantum computer computes by
-following the linear algebra!
+Este código te permite ver fácilmente cómo funciona una computadora cuántica siguiendo el álgebra lineal.
 
-```python
+``python
 from QuSim import QuantumRegister
 
-#############################################
-#                 Introduction              #
-#############################################
-# Here Will Be A Few Example of Different
-# Quantum States / Algorithms, So You Can
-# Get A Feel For How The Module Works, and  
-# Some Algorithmic Ideas
+################################################
+# Introducción #
+################################################
+# Aquí te presentamos algunos ejemplos de diferentes estados/algoritmos cuánticos para que puedas
+# familiarizarte con el funcionamiento del módulo y
+# algunas ideas algorítmicas
 
+###################################################
+# Medición cuántica #
+###############################################
+# Este experimento preparará dos estados: uno de un cúbit y otro de 5 cúbits, y los medirá.
 
-#############################################
-#            Quantum Measurement            #
-#############################################
-# This experiment will prepare 2 states, of a
-# Single qubit, and of 5 qubits, and will just
-# Measure them
+OneQubit = QuantumRegister(1) # Nuevo registro cuántico de 1 cúbit
+print('One Qubit: ' + OneQubit.measure()) # Debe imprimir 'One Qubit: 0'
 
-OneQubit = QuantumRegister(1)  # New Quantum Register of 1 Qubit
-print('One Qubit: ' + OneQubit.measure())  # Should Print 'One Qubit: 0'
-
-FiveQubits = QuantumRegister(5)  # New Quantum Register of 5 Qubits
-# Should Print 'Five Qubits: 00000'
+FiveQubits = QuantumRegister(5) # Nuevo registro cuántico de 5 cúbits
+# Debe imprimir 'Five Qubits: 00000'
 print('Five Qubits: ' + FiveQubits.measure())
 
-#############################################
-#                 Swap 2 Qubits             #
-#############################################
-# Here, We Will Apply a Pauli-X Gate / NOT Gate
-# To the first qubit, and then after the algorithm,
-# it will be swapped to the second qubit.
+##############################################
+# Intercambio de 2 cúbits #
+#################################################
+# Aquí, aplicaremos una puerta Pauli-X/puerta NOT
+# al primer cúbit y, después del algoritmo,
+# se intercambiará con el segundo cúbit.
 
-Swap = QuantumRegister(2)  # New Quantum Register of 2 qubits
-Swap.applyGate('X', 1)  # Apply The NOT Gate. If Measured Now, it should be 10
+Swap = QuantumRegister(2) # Nuevo registro cuántico de 2 cúbits
+Swap.applyGate('X', 1) # Aplicar la puerta NOT. Si se mide ahora, debería ser 10
 
-# Start the swap algorithm
+# Iniciar el algoritmo de intercambio
 Swap.applyGate('CNOT', 1, 2)
 Swap.applyGate('H', 1)
 Swap.applyGate('H', 2)
@@ -51,69 +46,62 @@ Swap.applyGate('CNOT', 1, 2)
 Swap.applyGate('H', 1)
 Swap.applyGate('H', 2)
 Swap.applyGate('CNOT', 1, 2)
-# End the swap algorithm
+# Finalizar el algoritmo de intercambio
 
-print('SWAP: |' + Swap.measure() + '>')  # Measure the State, Should be 01
+print('SWAP: |' + Swap.measure() + ">') # Medir el estado, debería ser 01
 
-#############################################
-#               Fair Coin Flip              #
-#############################################
-# Shown in this 'Experiment', is a so called 'Fair Coin Flip',
-# Where a state will be prepared, that has an equal chance of
-# Flipping to Each Possible State. to do this, the Hadamard
-# Gate will be used.
+####################################################
+# Lanzamiento de moneda justo #
+################################################
+# En este experimento se muestra un lanzamiento de moneda justo.
+# En este experimento se preparará un estado con la misma probabilidad de lanzarse a cada estado posible. Para ello, se utilizará la Puerta de Hadamard.
 
-# New Quantum Register of 1 Qubit (As a coin has only 2 states)
+# Nuevo Registro Cuántico de 1 Qubit (Como una moneda solo tiene 2 estados)
 FairCoinFlip = QuantumRegister(1)
-# If measured at this point, it should be |0>
+# Si se mide en este punto, debería ser |0>
 
-# Apply the hadamard gate, now theres an even chance of measuring 0 or 1
+# Aplicando la puerta Hadamard, ahora hay una probabilidad equitativa de medir 0 o 1
 FairCoinFlip.applyGate('H', 1)
 
-# Now, the state will be measured, flipping the state to
-# either 0 or 1. If its 0, we will say "Heads", or if its
-# 1, we will say "Tails"
-FairCoinFlipAnswer = FairCoinFlip.measure()  # Now its flipped, so we can test
+# Ahora, se medirá el estado, invirtiéndolo a 0 o 1. Si es 0, diremos "Cara", y si es 1, diremos "Cruz".
+FairCoinFlipAnswer = FairCoinFlip.measure() # Ahora está invertido, así que podemos probar
 if FairCoinFlipAnswer == '0':
-    print('FairCoinFlip: Heads')
+print('FairCoinFlip: Cara')
 elif FairCoinFlipAnswer == '1':
-    print('FairCoinFlip: Tails')
+print('FairCoinFlip: Tails)
 
-#############################################
-#             CNOT Gate                     #
-#############################################
-# In this experiment, 4 states will be prepared, {00, 01, 10, 11}
-# And then the same CNOT Gate will be run on them,
-# To Show The Effects of the CNOT. The Target Qubit will be 2, and the control 1
+###############################################
+# Puerta CNOT #
+###############################################
+# En este experimento, se prepararán 4 estados: {00, 01, 10, 11}
+# Y luego se ejecutará la misma Puerta CNOT sobre ellos.
+# Para mostrar los efectos del CNOT. El cúbit objetivo será 2 y el control 1.
 
-# New Quantum Register of 2 Qubits, done 4 times.
-# If any are measured at this time, the result will be 00
+# Nuevo registro cuántico de 2 cúbits, realizado 4 veces.
+# Si se mide alguno en este momento, el resultado será 00
 ZeroZero = QuantumRegister(2)
 ZeroOne = QuantumRegister(2)
 OneZero = QuantumRegister(2)
 OneOne = QuantumRegister(2)
 
-# Now prepare Each Into The State Based On Their Name
-# ZeroZero Will be left, as thats the first state anyway
+# Ahora, prepare cada uno en el estado según su nombre.
+# ZeroZero se dejará, ya que ese es el primer estado.
 ZeroOne.applyGate('X', 2)
 OneZero.applyGate('X', 1)
 OneOne.applyGate('X', 1)
 OneOne.applyGate('X', 2)
 
-# Now, a CNOT Will Be Applied To Each.
+# Ahora, se aplicará una CNOT a cada uno.
 ZeroZero.applyGate('CNOT', 1, 2)
 ZeroOne.applyGate('CNOT', 1, 2)
 OneZero.applyGate('CNOT', 1, 2)
 OneOne.applyGate('CNOT', 1, 2)
 
-# Print the results.
-print('CNOT on 00: |' + ZeroZero.measure() + '>')
-print('CNOT on 01: |' + ZeroOne.measure() + '>')
-print('CNOT on 10: |' + OneZero.measure() + '>')
-print('CNOT on 11: |' + OneOne.measure() + '>')
+# Imprimir los resultados.
+print('CNOT en 00: |' + ZeroZero.measure() + ">)
+print('CNOT en 01: |' + ZeroOne.measure() + ">)
+print('CNOT en 10: |' + OneZero.measure() + ">)
+print('CNOT en 11: |' + OneOne.measure() + ">)
 ```
 
-Largely based on the code from [corbett/QuantumComputing](https://github.com/corbett/QuantumComputing).
-
-If you are interested in a efficient, high performance, hardware accelerated
-quantum computer simulator written in Rust, please check out [QCGPU](https://github.com/qcgpu/qcgpu-rust)
+Basado principalmente en el código de [corbett/QuantumComputing](https://github.com/corbett/QuantumComputing). Si te interesa un simulador de computación cuántica eficiente, de alto rendimiento y acelerado por hardware, escrito en Rust, consulta [QCGPU](https://github.com/qcgpu/qcgpu-rust).
