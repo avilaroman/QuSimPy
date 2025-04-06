@@ -6,7 +6,7 @@ Qusim.py es un simulador de computadora cuántica multi-cúbit de juguete, escri
 
 Este código te permite ver fácilmente cómo funciona una computadora cuántica siguiendo el álgebra lineal.
 
-``python
+```python
 from QuSim import QuantumRegister
 
 ################################################
