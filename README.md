@@ -2,6 +2,11 @@
 
 Aplicación Android nativa (Kotlin) que carga `https://mapatuc.pages.dev` dentro de un WebView con soporte de JavaScript, DOM Storage y aceleración por hardware.
 
+Incluye:
+- Splash Screen nativa (AndroidX core-splashscreen) 🚀
+- Permisos opcionales para ubicación, cámara y micrófono 📍📷🎤
+- Nombre de app con emojis 🗺️✨
+
 ### Compilación rápida (APK debug)
 
 1. Abre el proyecto en Android Studio (Giraffe o superior) y deja que sincronice Gradle.
@@ -53,6 +58,8 @@ Si el sitio solicita geolocalización/cámara/micrófono, agrega permisos y mane
 ```
 
 Y maneja los permisos en `MainActivity` según sea necesario.
+
+La app ya solicita runtime permissions en arranque si faltan. Puedes personalizar el set de permisos en `MainActivity.requestNeededPermissions()`.
 
 ### Notas
 

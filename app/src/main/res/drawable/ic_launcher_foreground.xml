@@ -7,14 +7,12 @@
     <path
         android:fillColor="#FFFFFF"
         android:pathData="M54,10c24.3,0 44,19.7 44,44s-19.7,44 -44,44 -44,-19.7 -44,-44 19.7,-44 44,-44z" />
-    <path
-        android:fillColor="#191919"
-        android:pathData="M30,38h48v32H30z" />
+    <!-- simple pin/map emoji-like icon -->
     <path
         android:fillColor="#4CAF50"
-        android:pathData="M36,44h36v20H36z" />
+        android:pathData="M54,26c-11,0 -20,9 -20,20 0,14 20,36 20,36s20,-22 20,-36c0,-11 -9,-20 -20,-20z" />
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M40,52h28v4H40z" />
+        android:pathData="M54,40a6,6 0 1,0 0.0001,0z" />
 </vector>
 

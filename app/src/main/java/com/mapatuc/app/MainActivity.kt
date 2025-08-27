@@ -1,6 +1,8 @@
 package com.mapatuc.app
 
 import android.annotation.SuppressLint
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.KeyEvent
@@ -11,6 +13,9 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.enableEdgeToEdge
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
 import com.mapatuc.app.databinding.ActivityMainBinding
 
@@ -20,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         val webView = binding.webView
         configureWebView(webView)
         webView.loadUrl("https://mapatuc.pages.dev")
+        requestNeededPermissions()
     }
 
     private fun configureWebView(webView: WebView) {
@@ -71,6 +78,27 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    private val requestPermissionsLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        // No-op: WebView APIs solicitarán permisos específicos vía JS si corresponde
+    }
+
+    private fun requestNeededPermissions() {
+        val required = listOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.CAMERA,
+            Manifest.permission.RECORD_AUDIO
+        )
+        val toRequest = required.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+        if (toRequest.isNotEmpty()) {
+            requestPermissionsLauncher.launch(toRequest.toTypedArray())
+        }
     }
 }
 
