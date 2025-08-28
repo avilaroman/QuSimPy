@@ -1,3 +1,72 @@
+## MapaTuc WebView App (Android)
+
+Aplicación Android nativa (Kotlin) que carga `https://mapatuc.pages.dev` dentro de un WebView con soporte de JavaScript, DOM Storage y aceleración por hardware.
+
+Incluye:
+- Splash Screen nativa (AndroidX core-splashscreen) 🚀
+- Permisos opcionales para ubicación, cámara y micrófono 📍📷🎤
+- Nombre de app con emojis 🗺️✨
+
+### Compilación rápida (APK debug)
+
+1. Abre el proyecto en Android Studio (Giraffe o superior) y deja que sincronice Gradle.
+2. Selecciona un dispositivo/emulador y ejecuta "Run" para `app` (build `debug`).
+   - APK de debug quedará en `app/build/outputs/apk/debug/`.
+   - Alternativa CLI: instala Gradle 8.x y JDK 17 y ejecuta:
+     ```bash
+     gradle assembleDebug
+     ```
+
+### Firma y Play Store (AAB recomendado)
+
+1. Genera un keystore (una sola vez):
+
+```bash
+keytool -genkeypair -v -keystore keystore.jks -alias mapatuc -keyalg RSA -keysize 2048 -validity 36500
+```
+
+2. Crea `keystore.properties` en la raíz del proyecto con:
+
+```properties
+storeFile=keystore.jks
+storePassword=TU_PASSWORD
+keyAlias=mapatuc
+keyPassword=TU_PASSWORD
+```
+
+3. Construye artefactos:
+
+```bash
+# AAB para Play Store
+gradle bundleRelease
+
+# APK release (opcional)
+gradle assembleRelease
+```
+
+4. Sube el `.aab` generado en `app/build/outputs/bundle/release/` a Google Play Console.
+
+### Permisos extra (opcional)
+
+Si el sitio solicita geolocalización/cámara/micrófono, agrega permisos y maneja prompts:
+
+```xml
+<!-- AndroidManifest.xml -->
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.CAMERA" />
+```
+
+Y maneja los permisos en `MainActivity` según sea necesario.
+
+La app ya solicita runtime permissions en arranque si faltan. Puedes personalizar el set de permisos en `MainActivity.requestNeededPermissions()`.
+
+### Notas
+
+- Requiere conexión HTTPS (ya provista por `mapatuc.pages.dev`).
+- Back físico navega al historial del WebView.
+- Para permisos extra (p. ej. geolocalización), se pueden añadir en `AndroidManifest.xml` y manejar en `MainActivity`.
+
 # QuSim.py
 
 [![Estado de la compilación](https://travis-ci.org/adamisntdead/QuSimPy.svg?branch=master)](https://travis-ci.org/adamisntdead/QuSimPy)
